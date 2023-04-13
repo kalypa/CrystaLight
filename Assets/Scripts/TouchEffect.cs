@@ -4,10 +4,16 @@ using System.Collections.Generic;
 //using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
-public class TouchEffect : SingleMonobehaviour<TouchEffect>
+public class TouchEffect : MonoBehaviour
 {
+    public static TouchEffect Instance;
     [SerializeField]
     private float scaleOffset = 0.5f;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     public void ComboTextEffect()
     {
