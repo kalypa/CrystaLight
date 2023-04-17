@@ -15,37 +15,7 @@ public class OnClickManager : MonoBehaviour
     {
         Application.Quit();
     }
-    public void OnClickSongPanel1()
-    {
-        stagenum = 0;
-        SongChoiceManager.Instance.scrollRect.content.anchoredPosition = new Vector2(0, panelDistance * stagenum);
-    }
-    public void OnClickSongPanel2()
-    {
-        stagenum = 1;
-        SongChoiceManager.Instance.scrollRect.content.anchoredPosition = new Vector2(0, panelDistance * stagenum);
-    }
-    public void OnClickSongPanel3()
-    {
-        stagenum = 2;
-        SongChoiceManager.Instance.scrollRect.content.anchoredPosition = new Vector2(0, panelDistance * stagenum);
-    }
-    public void OnClickSongPanel4()
-    {
-        stagenum = 3;
-        SongChoiceManager.Instance.scrollRect.content.anchoredPosition = new Vector2(0, panelDistance * stagenum);
-    }
-    public void OnClickSongPanel5()
-    {
-        stagenum = 4;
-        SongChoiceManager.Instance.scrollRect.content.anchoredPosition = new Vector2(0, panelDistance * stagenum);
-    }
-    public void OnClickSongPanel6()
-    {
-        stagenum = 5;
-        SongChoiceManager.Instance.scrollRect.content.anchoredPosition = new Vector2(0, panelDistance * stagenum);
-    }
-    public void OnClickStageStartButton()
+    public void OnClickPlayButton()
     {
         SceneManager.LoadScene("PlayScene");
     }

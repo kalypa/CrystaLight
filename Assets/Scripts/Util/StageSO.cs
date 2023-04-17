@@ -8,5 +8,5 @@ public class StageSO : ScriptableObject
     public SongSO stageSong;
     public int stageNum;
     public int stageDifficulty;
-    public AudioSource previewSong;
+    public AudioClip previewSong;
 }

@@ -11,10 +11,7 @@ public class SongChoiceManager : MonoBehaviour
     [HideInInspector] public GameObject currentPanel = null;
     public ScrollRect scrollRect;
     private float panelDistance = 1080f;
-
-    public delegate void InfoInit();
-    public event InfoInit OnFunctionsCalled;
-
+    public AudioSource previewSong;
     private void Awake()
     {
         Instance = this;
@@ -23,10 +20,6 @@ public class SongChoiceManager : MonoBehaviour
     private void Start()
     {
         SongInfoInit();
-    }
-
-    private void Update()
-    {
         ChoiceSong();
     }
 
@@ -41,16 +34,21 @@ public class SongChoiceManager : MonoBehaviour
         }
     }
 
-    void ChoiceSong()
+    public void ChoiceSong()
     {
         for(int i = 0; i < songPanelList.Count; i++)
         {
             if (scrollRect.content.anchoredPosition.y == panelDistance * i)
             {
-                var song = StageManager.Instance.stageList[i].stageSong;
+                var stage = StageManager.Instance.stageList[i];
                 StageManager.Instance.currentStageNum = i;
-                StageManager.Instance.songName.text = song.songName;
-                StageManager.Instance.artistName.text = song.artistName;
+                StageManager.Instance.songName.text = stage.stageSong.songName;
+                StageManager.Instance.artistName.text = stage.stageSong.artistName;
+                if(previewSong.clip != stage.previewSong)
+                {
+                    previewSong.clip = stage.previewSong;
+                    previewSong.Play();
+                }
             }
         }
     }

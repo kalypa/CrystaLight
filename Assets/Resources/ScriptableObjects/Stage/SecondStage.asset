@@ -15,5 +15,4 @@ MonoBehaviour:
   stageSong: {fileID: 11400000, guid: c8a5f3b3417e54149808e210eae2ac44, type: 2}
   stageNum: 2
   stageDifficulty: 3
-  stageBackground: {fileID: 21300000, guid: 9f7c42e6eccccfe48a64ae26911e8b23, type: 3}
-  stageTitleImage: {fileID: 21300000, guid: 81e8a765a77a14b42b1c557c89a0381d, type: 3}
+  previewSong: {fileID: 8300000, guid: 321cfbd2fa5f90245ab1f850156b7acd, type: 3}

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Melanchall.DryWetMidi.Interaction;
 using System;
 using System.Collections;
@@ -129,9 +130,11 @@ public class Lane : MonoBehaviour
             
             if (Input.GetKeyDown(input))                                                                                                                                 
             {
-                holdLaneImage.SetActive(true);
+                //holdLaneImage.SetActive(true);
+                HoldInit();
                 if (Math.Abs(audioTime - timeStamp) < marginOfError)                                                                                                     
                 {
+                    HoldLaneEffect();
                     judgementText.TimerInit();
                     judgementText.AccuracyJudgement(audioTime, timeStamp);                                                                                               
                     Hit();
@@ -276,5 +279,20 @@ public class Lane : MonoBehaviour
         if (FindObjectOfType<OffsetManager>() == null)
             return;
         OffsetManager.Instance.offsetList.Add(d);
+    }
+
+    void HoldLaneEffect()
+    {
+        var originScale = 1;
+        holdLaneImage.transform.localScale = new Vector2(originScale, holdLaneImage.transform.localScale.y);
+        holdLaneImage.SetActive(true);
+        holdLaneImage.transform.DOScaleX(0, 0.4f);
+    }
+
+    void HoldInit()
+    {
+        var originScale = 1;
+        holdLaneImage.transform.localScale = new Vector2(originScale, holdLaneImage.transform.localScale.y);
+        holdLaneImage.SetActive(true);
     }
 }
