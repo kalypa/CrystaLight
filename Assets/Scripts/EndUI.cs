@@ -3,8 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class EndUI : SingleMonobehaviour<EndUI>
+public class EndUI : MonoBehaviour
 {
+    public static EndUI Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     [SerializeField] private TMP_Text rankText;
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private TMP_Text accuracyText;

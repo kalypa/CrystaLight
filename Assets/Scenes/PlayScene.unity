@@ -1824,7 +1824,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 45da876f9c4baa04c89e539e96565aac, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 8a05288227daa734c93466d498353a7d, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -7057,18 +7057,14 @@ MonoBehaviour:
   sideLane: {fileID: 1205636721}
   refractionLane: {fileID: 1146770904}
   notes: []
-  timeStamps: []
-  endTimeStamps: []
-  sameTimeInSideLaneList: []
-  sameTimeInRefractionLaneList: []
-  sameTimeInCrossLaneList: []
-  noteLengthList: 
   spawnIndex: 0
   inputIndex: 0
   sideIndex: 0
   refractionIndex: 0
   crossIndex: 0
   isCrossLane: 1
+  noteSO: {fileID: 0}
+  laneNum: 1
 --- !u!1 &420449193
 GameObject:
   m_ObjectHideFlags: 0
@@ -18272,18 +18268,14 @@ MonoBehaviour:
   sideLane: {fileID: 1146770904}
   refractionLane: {fileID: 1205636721}
   notes: []
-  timeStamps: []
-  endTimeStamps: []
-  sameTimeInSideLaneList: []
-  sameTimeInRefractionLaneList: []
-  sameTimeInCrossLaneList: []
-  noteLengthList: 
   spawnIndex: 0
   inputIndex: 0
   sideIndex: 0
   refractionIndex: 0
   crossIndex: 0
   isCrossLane: 0
+  noteSO: {fileID: 0}
+  laneNum: 3
 --- !u!120 &906662438
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -18383,55 +18375,6 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!1 &937173236
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 937173237}
-  - component: {fileID: 937173238}
-  m_Layer: 0
-  m_Name: StageManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &937173237
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 937173236}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1556132366}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &937173238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 937173236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9f799a26c01d544eb1b5e9d81f42de8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stageList:
-  - {fileID: 11400000, guid: c76882e8e1fff4844af21c9b9639bd0a, type: 2}
-  currentStageNum: 0
-  songName: {fileID: 0}
-  artistName: {fileID: 0}
 --- !u!1 &962334469
 GameObject:
   m_ObjectHideFlags: 0
@@ -19346,18 +19289,14 @@ MonoBehaviour:
   sideLane: {fileID: 418070891}
   refractionLane: {fileID: 906662437}
   notes: []
-  timeStamps: []
-  endTimeStamps: []
-  sameTimeInSideLaneList: []
-  sameTimeInRefractionLaneList: []
-  sameTimeInCrossLaneList: []
-  noteLengthList: 
   spawnIndex: 0
   inputIndex: 0
   sideIndex: 0
   refractionIndex: 0
   crossIndex: 0
   isCrossLane: 0
+  noteSO: {fileID: 0}
+  laneNum: 2
 --- !u!120 &1146770905
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -19659,18 +19598,14 @@ MonoBehaviour:
   sideLane: {fileID: 906662437}
   refractionLane: {fileID: 418070891}
   notes: []
-  timeStamps: []
-  endTimeStamps: []
-  sameTimeInSideLaneList: []
-  sameTimeInRefractionLaneList: []
-  sameTimeInCrossLaneList: []
-  noteLengthList: 
   spawnIndex: 0
   inputIndex: 0
   sideIndex: 0
   refractionIndex: 0
   crossIndex: 0
   isCrossLane: 1
+  noteSO: {fileID: 0}
+  laneNum: 0
 --- !u!212 &1205636722
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -25218,7 +25153,6 @@ Transform:
   - {fileID: 180880882}
   - {fileID: 116216376}
   - {fileID: 1175117934}
-  - {fileID: 937173237}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -30433,9 +30367,9 @@ MonoBehaviour:
   songDelayInSeconds: 0
   marginOfError: 0.2
   inputDelayInMilliseconds: 0
-  fileLocation: Tunnel.mid
+  fileLocation: Orca.mid
   noteTime: 1
-  longNoteTime: 4
+  longNoteTime: 10
   noteSpawnY: 40
   noteTapY: -3.5
 --- !u!1 &1814363481

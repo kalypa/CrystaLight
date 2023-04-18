@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed6870c2354a28b459276b4fcbe8f8f7, type: 3}
   m_Name: Ophelia -Phantasm-
   m_EditorClassIdentifier: 
-  songNotes: {fileID: 0}
-  songAudioSource: {fileID: 842315431685130481, guid: 7f81654c7a6876344ac91ebdf7f9638f,
+  songNotes:
+  - {fileID: 0}
+  songAudioSource: {fileID: 842315431685130483, guid: 7f81654c7a6876344ac91ebdf7f9638f,
     type: 3}
   songName: Ophelia -Phantasm-
   artistName: Lime

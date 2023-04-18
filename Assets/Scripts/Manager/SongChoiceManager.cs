@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class SongChoiceManager : MonoBehaviour
     [HideInInspector] public GameObject currentPanel = null;
     public ScrollRect scrollRect;
     private float panelDistance = 1080f;
+    private float distancehalf = 540f;
     public AudioSource previewSong;
     private void Awake()
     {
@@ -20,7 +22,7 @@ public class SongChoiceManager : MonoBehaviour
     private void Start()
     {
         SongInfoInit();
-        ChoiceSong();
+        ChoiceSong(false);
     }
 
     void SongInfoInit()
@@ -34,21 +36,48 @@ public class SongChoiceManager : MonoBehaviour
         }
     }
 
-    public void ChoiceSong()
+    void stageSetting(int i, bool isDrag)
     {
-        for(int i = 0; i < songPanelList.Count; i++)
+        var instance = StageManager.Instance;
+        var stage = instance.stageList[i];
+        instance.currentStageNum = i;
+        instance.songName.text = stage.stageSong.songName;
+        instance.artistName.text = stage.stageSong.artistName;
+        if (!isDrag)
         {
-            if (scrollRect.content.anchoredPosition.y == panelDistance * i)
+            if (previewSong.clip != stage.previewSong)
             {
-                var stage = StageManager.Instance.stageList[i];
-                StageManager.Instance.currentStageNum = i;
-                StageManager.Instance.songName.text = stage.stageSong.songName;
-                StageManager.Instance.artistName.text = stage.stageSong.artistName;
-                if(previewSong.clip != stage.previewSong)
-                {
-                    previewSong.clip = stage.previewSong;
-                    previewSong.Play();
-                }
+                previewSong.clip = stage.previewSong;
+                previewSong.Play();
+            }
+        }
+    }
+
+    void ClampedCheck(bool isClampPos, int i, bool isDrag)
+    {
+        if (isClampPos)
+        {
+            stageSetting(i, isDrag);
+        }
+    }
+    public void ChoiceSong(bool isDrag)
+    {
+        var contentPos = scrollRect.content.anchoredPosition.y;
+        for (int i = 0; i < songPanelList.Count; i++)
+        {
+            var isClampPosMin = contentPos > panelDistance * (i - 1) + distancehalf;
+            var isClampPosMax = contentPos <= panelDistance * (i + 1) - distancehalf;
+            if (i == 0)
+            {
+                ClampedCheck(isClampPosMax, i, isDrag);
+            }
+            else if (i == songPanelList.Count - 1)
+            {
+                ClampedCheck(isClampPosMin, i, isDrag);
+            }
+            else
+            {
+                ClampedCheck(isClampPosMin && isClampPosMax, i, isDrag);
             }
         }
     }

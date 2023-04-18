@@ -20,45 +20,47 @@ public class Lane : MonoBehaviour
     public Lane sideLane;
     public Lane refractionLane;
     public List<Note> notes = new();
-    public List<double> timeStamps = new();
-    public List<double> endTimeStamps = new();
-    public List<double> sameTimeInSideLaneList = new();
-    public List<double> sameTimeInRefractionLaneList = new();
-    public List<double> sameTimeInCrossLaneList = new();
-    public List<long> noteLengthList = new();
     public int spawnIndex = 0;
     public int inputIndex = 0;
     public int sideIndex = 0;
     public int refractionIndex = 0;
     public int crossIndex = 0;
     public bool isCrossLane;
-
-    public void SetTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array)      
+    [HideInInspector] public NotesSO noteSO;
+    public int laneNum;
+    public void SetTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array)
     {
-        foreach (var note in array)
         {
-            if (note.NoteName == noteRestriction)                                  
+            foreach (var note in array)
             {
-                var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, SongManager.midiFile.GetTempoMap());                       
-                timeStamps.Add((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f);
-                noteLengthList.Add(note.Length);
+                if (note.NoteName == noteRestriction)
+                {
+                    var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, SongManager.midiFile.GetTempoMap());
+                    noteSO.timeStamps.Add((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f);
+                    noteSO.noteLengthList.Add(note.Length);
+                }
             }
         }
     }
 
-    public void SetEndTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array)       
+    public void SetEndTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array)
     {
-        foreach (var note in array)
         {
-            if (note.NoteName == noteRestriction)                                  
+            foreach (var note in array)
             {
-                var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.EndTime, SongManager.midiFile.GetTempoMap());
-                endTimeStamps.Add((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f);
-                noteLengthList.Add(note.Length);
+                if (note.NoteName == noteRestriction)
+                {
+                    var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.EndTime, SongManager.midiFile.GetTempoMap());
+                    noteSO.endTimeStamps.Add((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f);
+                    noteSO.noteLengthList.Add(note.Length);
+                }
             }
         }
     }
-
+    public void NotSOInit()
+    {
+        noteSO = StageManager.Instance.stageList[StageManager.Instance.currentStageNum].stageSong.songNotes[laneNum];
+    }
     void Update()
     {
         judgementText.JudgementTextTimer();
@@ -68,18 +70,18 @@ public class Lane : MonoBehaviour
 
     void SetNote()
     {
-        if (spawnIndex < timeStamps.Count)                                                                             
+        if (spawnIndex < noteSO.timeStamps.Count)
         {
-            if (SongManager.GetAudioSourceTime() >= timeStamps[spawnIndex] - SongManager.Instance.noteTime)           
+            if (SongManager.GetAudioSourceTime() >= noteSO.timeStamps[spawnIndex] - SongManager.Instance.noteTime)
             {
-                if (sameTimeInSideLaneList.Count - 1 >= sideIndex && sameTimeInSideLaneList[sideIndex] == timeStamps[spawnIndex])
+                if (noteSO.sameTimeInSideLaneList.Count - 1 >= sideIndex && noteSO.sameTimeInSideLaneList[sideIndex] == noteSO.timeStamps[spawnIndex])
                 {
                     SpawnNote(Note.NoteType.Invisible);
                     sideIndex++;
                 }
-                else if(sameTimeInCrossLaneList.Count - 1 >= crossIndex && sameTimeInCrossLaneList[crossIndex] == timeStamps[spawnIndex])
+                else if (noteSO.sameTimeInCrossLaneList.Count - 1 >= crossIndex && noteSO.sameTimeInCrossLaneList[crossIndex] == noteSO.timeStamps[spawnIndex])
                 {
-                    if(isCross() == isCrossLane)
+                    if (isCross() == isCrossLane)
                     {
                         SpawnNote(Note.NoteType.Invisible);
                         crossIndex++;
@@ -90,14 +92,14 @@ public class Lane : MonoBehaviour
                         crossIndex++;
                     }
                 }
-                else if (sameTimeInRefractionLaneList.Count - 1 >= refractionIndex && sameTimeInRefractionLaneList[refractionIndex] == timeStamps[spawnIndex])
+                else if (noteSO.sameTimeInRefractionLaneList.Count - 1 >= refractionIndex && noteSO.sameTimeInRefractionLaneList[refractionIndex] == noteSO.timeStamps[spawnIndex])
                 {
                     SpawnNote(Note.NoteType.Refraction);
                     refractionIndex++;
                 }
                 else
                 {
-                    if(noteLengthList[spawnIndex] == 32)
+                    if (noteSO.noteLengthList[spawnIndex] == 32)
                     {
                         SpawnNote(Note.NoteType.Normal);
                     }
@@ -115,43 +117,43 @@ public class Lane : MonoBehaviour
         var note = Instantiate(notePrefab, transform);
         note.GetComponent<Note>().type = n;
         notes.Add(note.GetComponent<Note>());
-        note.GetComponent<Note>().endTime = endTimeStamps[spawnIndex];
+        note.GetComponent<Note>().endTime = noteSO.endTimeStamps[spawnIndex];
         spawnIndex++;
-    }       
+    }
 
     void NoteInput()
     {
-        if (inputIndex < timeStamps.Count)                                                                                                                           
+        if (inputIndex < noteSO.timeStamps.Count)
         {
-            double timeStamp = timeStamps[inputIndex];                                                                                            
-            double endTimeStamp = endTimeStamps[inputIndex];                                                                                            
-            double marginOfError = SongManager.Instance.marginOfError;                                                                                                   
-            double audioTime = SongManager.GetAudioSourceTime() - (SongManager.Instance.inputDelayInMilliseconds / 1000.0);   
-            
-            if (Input.GetKeyDown(input))                                                                                                                                 
+            double timeStamp = noteSO.timeStamps[inputIndex];
+            double endTimeStamp = noteSO.endTimeStamps[inputIndex];
+            double marginOfError = SongManager.Instance.marginOfError;
+            double audioTime = SongManager.GetAudioSourceTime() - (SongManager.Instance.inputDelayInMilliseconds / 1000.0);
+
+            if (Input.GetKeyDown(input))
             {
-                //holdLaneImage.SetActive(true);
                 HoldInit();
-                if (Math.Abs(audioTime - timeStamp) < marginOfError)                                                                                                     
+                if (Math.Abs(audioTime - timeStamp) < marginOfError)
                 {
-                    HoldLaneEffect();
                     judgementText.TimerInit();
-                    judgementText.AccuracyJudgement(audioTime, timeStamp);                                                                                               
+                    judgementText.AccuracyJudgement(audioTime, timeStamp);
                     Hit();
                     if (notes[inputIndex].type != Note.NoteType.Long)
                     {
+                        HoldLaneEffect();
                         Destroy(notes[inputIndex].gameObject);
                         inputIndex++;
                     }
                     else
                     {
+                        HoldInit();
                         notes[inputIndex].isHolding = true;
                         notes[inputIndex].GetComponent<SpriteRenderer>().enabled = false;
                     }
                     OffsetCheck(audioTime, timeStamp);
                 }
 
-                else if (audioTime - timeStamp >= marginOfError)                                                                                       
+                else if (audioTime - timeStamp >= marginOfError)
                 {
                     judgementText.TimerInit();
                     judgementText.ViewMissText();
@@ -160,9 +162,9 @@ public class Lane : MonoBehaviour
                     OffsetCheck(audioTime, timeStamp);
                 }
             }
-            if(notes.Count - 1 >= inputIndex && notes[inputIndex].isHolding)
+            if (notes.Count - 1 >= inputIndex && notes[inputIndex].isHolding)
             {
-                if(Input.GetKey(input)) 
+                if (Input.GetKey(input))
                 {
                     if (Math.Abs(audioTime - endTimeStamp) < marginOfError)
                     {
@@ -174,7 +176,7 @@ public class Lane : MonoBehaviour
                         inputIndex++;
                     }
                 }
-                if(Input.GetKeyUp(input))
+                if (Input.GetKeyUp(input))
                 {
                     if (audioTime - endTimeStamp >= marginOfError)
                     {
@@ -188,7 +190,7 @@ public class Lane : MonoBehaviour
             }
             if (timeStamp + marginOfError <= audioTime)
             {
-                if(notes.Count - 1 >= inputIndex && notes[inputIndex] != null)
+                if (notes.Count - 1 >= inputIndex && notes[inputIndex] != null)
                 {
                     if (notes[inputIndex].type != Note.NoteType.Long)
                     {
@@ -223,9 +225,9 @@ public class Lane : MonoBehaviour
 
     public void FindSameTimeInOtherLaneTimeStamp(Lane lane, List<double> list)
     {
-        foreach (var t in lane.timeStamps)
+        foreach (var t in lane.noteSO.timeStamps)
         {
-            if (timeStamps.Contains(t) == true)
+            if (noteSO.timeStamps.Contains(t) == true)
             {
                 list.Add(t);
             }
@@ -240,7 +242,7 @@ public class Lane : MonoBehaviour
 
     bool isCross()
     {
-        if(crossIndex % 2 == 0)
+        if (crossIndex % 2 == 0)
         {
             return true;
         }

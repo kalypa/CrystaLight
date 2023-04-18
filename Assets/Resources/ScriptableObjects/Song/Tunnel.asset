@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed6870c2354a28b459276b4fcbe8f8f7, type: 3}
   m_Name: Tunnel
   m_EditorClassIdentifier: 
-  songNotes: {fileID: 11400000, guid: b2078df5991998f4c9c91d435582778a, type: 2}
-  songAudioSource: {fileID: 582597519421095041, guid: d56f5f17cf513234d9cb0b01dddfae2b,
+  songNotes:
+  - {fileID: 11400000, guid: ab1a97337cb132a45af225025b189959, type: 2}
+  - {fileID: 11400000, guid: a157460859fdf344bbe22fa422e1a5d2, type: 2}
+  - {fileID: 11400000, guid: 2a15427abd7a5c84fb4a265819a05eee, type: 2}
+  - {fileID: 11400000, guid: b2078df5991998f4c9c91d435582778a, type: 2}
+  songAudioSource: {fileID: 582597519421095043, guid: d56f5f17cf513234d9cb0b01dddfae2b,
     type: 3}
   songName: Tunnel
   artistName: Plum

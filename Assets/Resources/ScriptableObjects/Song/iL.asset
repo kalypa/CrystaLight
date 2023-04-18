@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed6870c2354a28b459276b4fcbe8f8f7, type: 3}
   m_Name: iL
   m_EditorClassIdentifier: 
-  songNotes: {fileID: 0}
-  songAudioSource: {fileID: 1200848907861713890, guid: c8e584882136e854fbdb7939efa48753,
+  songNotes:
+  - {fileID: 0}
+  songAudioSource: {fileID: 1200848907861713916, guid: c8e584882136e854fbdb7939efa48753,
     type: 3}
   songName: iL
   artistName: ICE

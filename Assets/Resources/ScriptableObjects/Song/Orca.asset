@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed6870c2354a28b459276b4fcbe8f8f7, type: 3}
   m_Name: Orca
   m_EditorClassIdentifier: 
-  songNotes: {fileID: 11400000, guid: 8245e2fa5e6a7f547b16c1fdbb81e49c, type: 2}
-  songAudioSource: {fileID: 9174803205534356, guid: 5b0d3617629c13248bbcb37bca39f8b6,
+  songNotes:
+  - {fileID: 11400000, guid: 036f7e5e14c4e234fab16a37e0efd8fb, type: 2}
+  - {fileID: 11400000, guid: 1578e1f2d1489444d959a91bcf42ca25, type: 2}
+  - {fileID: 11400000, guid: b8f43afd81dc471448c6f9bc61c4a534, type: 2}
+  - {fileID: 11400000, guid: 8245e2fa5e6a7f547b16c1fdbb81e49c, type: 2}
+  songAudioSource: {fileID: 9174803205534358, guid: 5b0d3617629c13248bbcb37bca39f8b6,
     type: 3}
   songName: Orca
   artistName: Plum

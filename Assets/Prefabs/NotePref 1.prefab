@@ -102,6 +102,8 @@ MonoBehaviour:
   endTime: 0
   tailPrefab: {fileID: 7392918386292957036, guid: e552c623400c6c4409feefb9381f6a1e,
     type: 3}
+  lightmaterial: []
+  isHolding: 0
 --- !u!120 &542317765374458535
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -166,8 +168,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.15566039, g: 1, b: 0.85345346, a: 1}
+      key1: {r: 0.2028302, g: 0.4508898, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}

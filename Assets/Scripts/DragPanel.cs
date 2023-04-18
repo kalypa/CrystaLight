@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine.UI;
 
 public class DragPanel : MonoBehaviour, IDragHandler, IEndDragHandler
 {
+    [SerializeField] private Button playButton;
     public float snapDistance = 1080f;
     public ScrollRect scrollRect;
     private float clampedDistance;
@@ -23,8 +25,13 @@ public class DragPanel : MonoBehaviour, IDragHandler, IEndDragHandler
         float roundedY = Mathf.Round(yPos / snapDistance) * snapDistance;
         Vector2 newPosition = new Vector2(0, yPos);
 
+        if(scrollRect.content.anchoredPosition != newPosition)
+        {
+            SongChoiceManager.Instance.ChoiceSong(true);
+            playButton.GetComponent<RectTransform>().DOScale(0, 0.2f);
+            Invoke(nameof(ActiveButton), 0.2f);
+        }
         scrollRect.content.anchoredPosition = newPosition;
-
     }
     public void OnEndDrag(PointerEventData eventData)
     {
@@ -33,7 +40,10 @@ public class DragPanel : MonoBehaviour, IDragHandler, IEndDragHandler
         Vector2 snappedPosition = new Vector2(0, roundedY);
         StartCoroutine(SmoothSnap(snappedPosition));
     }
-
+    private void ActiveButton()
+    {
+        playButton.gameObject.SetActive(false);
+    }
     private IEnumerator SmoothSnap(Vector2 targetPosition)
     {
         float elapsedTime = 0f;
@@ -51,7 +61,9 @@ public class DragPanel : MonoBehaviour, IDragHandler, IEndDragHandler
         }
 
         scrollRect.content.anchoredPosition = targetPosition;
-        SongChoiceManager.Instance.ChoiceSong();
+        SongChoiceManager.Instance.ChoiceSong(false);
+        playButton.gameObject.SetActive(true);
+        playButton.GetComponent<RectTransform>().DOScale(1, 0.2f);
     }
 
 }

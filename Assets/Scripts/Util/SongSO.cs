@@ -5,8 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Song/SongSO")]
 public class SongSO : ScriptableObject
 {
-    public NotesSO songNotes;
-    public GameObject songAudioSource;
+    public List<NotesSO> songNotes;
+    public AudioSource songAudioSource;
     public string songName;
     public string artistName;
     public Sprite background;

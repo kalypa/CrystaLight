@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed6870c2354a28b459276b4fcbe8f8f7, type: 3}
   m_Name: Lueur de la nuit
   m_EditorClassIdentifier: 
-  songNotes: {fileID: 0}
-  songAudioSource: {fileID: 1668181697720050697, guid: 41c6252da3c5d2149b2686ff69e32b72,
+  songNotes:
+  - {fileID: 0}
+  songAudioSource: {fileID: 1668181697720050695, guid: 41c6252da3c5d2149b2686ff69e32b72,
     type: 3}
   songName: Lueur de la nuit
   artistName: AAAA + CK

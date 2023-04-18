@@ -25,7 +25,7 @@ public class Note : MonoBehaviour
     int longNoteSpawnCount = 0;
     GameObject tail;
     public bool isHolding = false;
-    private 
+    private float lanePos = -3f;
     void Start()
     {
         timeInstantiated = SongManager.GetAudioSourceTime();
@@ -46,6 +46,11 @@ public class Note : MonoBehaviour
         {
             NoteDown(t, t);
         }
+    }
+    void SetLineRendererPos(Vector3 startPos, Vector3 endPos)
+    {
+        lineRenderer.SetPosition(0, startPos);
+        lineRenderer.SetPosition(1, endPos);
     }
 
     void NoteDown(float t, float t2)
@@ -87,19 +92,16 @@ public class Note : MonoBehaviour
                         }
                         if (!isHolding)
                         {
-                            lineRenderer.SetPosition(0, transform.position);
-                            lineRenderer.SetPosition(1, new Vector3(transform.position.x, transform.position.y, tail.transform.position.z));
+                            SetLineRendererPos(transform.position, new Vector3(transform.position.x, transform.position.y, tail.transform.position.z));
                         }
                         else
                         {
-                            lineRenderer.SetPosition(0, new Vector3(transform.position.x, transform.position.y, -3));
-                            lineRenderer.SetPosition(1, new Vector3(transform.position.x, transform.position.y, tail.transform.position.z));
+                            SetLineRendererPos(new Vector3(transform.position.x, transform.position.y, lanePos), new Vector3(transform.position.x, transform.position.y, tail.transform.position.z));
                         }
                     }
                     else
                     {
-                        lineRenderer.SetPosition(0, transform.position);
-                        lineRenderer.SetPosition(1, new Vector3(transform.position.x, transform.position.y, 40));
+                        SetLineRendererPos(transform.position, new Vector3(transform.position.x, transform.position.y, SongManager.Instance.noteSpawnY));
                     }
                     break;
             }

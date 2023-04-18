@@ -4,6 +4,7 @@ using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
 using System.IO;
 using UnityEngine.Networking;
+using System.Numerics;
 
 public class SongManager : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class SongManager : MonoBehaviour
 
     public int inputDelayInMilliseconds;   // 입력 지연 시간 (밀리초 단위)
 
-    public string fileLocation; // 미디 파일의 위치
+    private string fileLocation; // 미디 파일의 위치
     public float noteTime;  // 노트가 생성되는 시간
     public float longNoteTime;  // 노트가 생성되는 시간
     public float noteSpawnY;    // 노트가 생성되는 위치 (세로축)
@@ -32,13 +33,14 @@ public class SongManager : MonoBehaviour
 
     void Start()
     {
-        inputDelayInMilliseconds = GameManager.Instance.offset; // GameManager에서 가져온 입력 지연 시간
         Instance = this;
+        inputDelayInMilliseconds = GameManager.Instance.offset; // GameManager에서 가져온 입력 지연 시간
         ReadFromFile();
     }
 
     private void ReadFromFile() // 로컬에서 미디 파일을 읽어들이는 메소드
     {
+        fileLocation = StageManager.Instance.stageList[StageManager.Instance.currentStageNum].stageSong.songName.ToString() + ".mid";
         midiFile = MidiFile.Read(Application.streamingAssetsPath + "/" + fileLocation);  // 미디 파일을 파싱하여 변수에 저장
         GetDataFromMidi();  // 미디 파일에서 데이터를 추출하여 레인에 할당하는 메소드 실행
     }
@@ -50,18 +52,20 @@ public class SongManager : MonoBehaviour
         notes.CopyTo(array, 0);    // 배열에 미디 파일에서 추출한 노트 이벤트 정보를 복사
 
         Invoke(nameof(StartSong), songDelayInSeconds);  // 지정한 시간 후 곡을 시작하는 메소드를 호출하는 Invoke 함수
-        foreach (var lane in lanes) lane.SetTimeStamps(array);  // 각 레인에 노트 이벤트 정보를 할당하는 메소드 호출
-        foreach (var lane in lanes) lane.SetEndTimeStamps(array);  // 각 레인에 노트 이벤트 정보를 할당하는 메소드 호출
-        foreach(var lane in lanes)
+        foreach (var lane in lanes) lane.NotSOInit();
+        //foreach (var lane in lanes) lane.SetTimeStamps(array);  // 각 레인에 노트 이벤트 정보를 할당하는 메소드 호출
+        //foreach (var lane in lanes) lane.SetEndTimeStamps(array);  // 각 레인에 노트 이벤트 정보를 할당하는 메소드 호출
+        foreach (var lane in lanes)
         {
-            lane.FindSameTimeInOtherLaneTimeStamp(lane.sideLane, lane.sameTimeInSideLaneList);
-            lane.FindSameTimeInOtherLaneTimeStamp(lane.crossLane, lane.sameTimeInCrossLaneList);
-            lane.FindSameTimeInOtherLaneTimeStamp(lane.refractionLane, lane.sameTimeInRefractionLaneList);
+            lane.FindSameTimeInOtherLaneTimeStamp(lane.sideLane, lane.sideLane.noteSO.sameTimeInSideLaneList);
+            lane.FindSameTimeInOtherLaneTimeStamp(lane.crossLane, lane.crossLane.noteSO.sameTimeInCrossLaneList);
+            lane.FindSameTimeInOtherLaneTimeStamp(lane.refractionLane, lane.refractionLane.noteSO.sameTimeInRefractionLaneList);
         }
     }
 
     public void StartSong() // 곡 시작
     {
+        audioSource.clip = StageManager.Instance.stageList[StageManager.Instance.currentStageNum].stageSong.songAudioSource.clip;
         audioSource.Play(); // AudioSource 컴포넌트의 Play 메소드 호출
     }
 

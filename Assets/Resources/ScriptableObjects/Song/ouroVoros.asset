@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed6870c2354a28b459276b4fcbe8f8f7, type: 3}
   m_Name: ouroVoros
   m_EditorClassIdentifier: 
-  songNotes: {fileID: 0}
-  songAudioSource: {fileID: 1906629300350181818, guid: cee6a60286875ee4789d5c8979cdc0dc,
+  songNotes:
+  - {fileID: 0}
+  songAudioSource: {fileID: 6711653464573643755, guid: cee6a60286875ee4789d5c8979cdc0dc,
     type: 3}
   songName: ouroVoros
   artistName: Negentropy (a.k.a. Team Grimoire)

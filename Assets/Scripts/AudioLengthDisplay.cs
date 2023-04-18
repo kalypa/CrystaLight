@@ -15,7 +15,7 @@ public class AudioLengthDisplay : MonoBehaviour
 
     private void UpdateAudioLengthText()
     {
-        audioClip = StageManager.Instance.stageList[StageManager.Instance.currentStageNum].stageSong.songAudioSource.GetComponent<AudioSource>().clip;
+        audioClip = StageManager.Instance.stageList[StageManager.Instance.currentStageNum].stageSong.songAudioSource.clip;
         if (audioClip == null || audioLengthText == null) return;
 
         float audioLengthInSeconds = audioClip.length;

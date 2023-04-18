@@ -10,5 +10,4 @@ public class StageManager : SingleMonobehaviour<StageManager>
     public TMP_Text songName;
     public TMP_Text artistName;
 
-
 }
