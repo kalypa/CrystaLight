@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,24 +12,20 @@ public class SongChoiceManager : MonoBehaviour
     private float panelDistance = 1080f;
     private float distancehalf = 540f;
     public AudioSource previewSong;
-    private void Awake()
-    {
-        Instance = this;
-    }
+    private void Awake() => Instance = this;
 
-    private void Start()
+    private void Start() => Init();
+    void Init()
     {
         SongInfoInit();
         ChoiceSong(false);
     }
-
     void SongInfoInit()
     {
         for(int i = 0; i < songPanelList.Count; i++) 
         {
             var songPanel = songPanelList[i].GetComponent<SongInfo>();
             var song = StageManager.Instance.stageList[i].stageSong;
-            songPanel.backgroundImage.sprite = song.background;
             songPanel.albumArtImage.sprite = song.albumArt;
         }
     }
@@ -55,11 +49,9 @@ public class SongChoiceManager : MonoBehaviour
 
     void ClampedCheck(bool isClampPos, int i, bool isDrag)
     {
-        if (isClampPos)
-        {
-            stageSetting(i, isDrag);
-        }
+        if (isClampPos) stageSetting(i, isDrag);
     }
+
     public void ChoiceSong(bool isDrag)
     {
         var contentPos = scrollRect.content.anchoredPosition.y;
@@ -69,15 +61,15 @@ public class SongChoiceManager : MonoBehaviour
             var isClampPosMax = contentPos <= panelDistance * (i + 1) - distancehalf;
             if (i == 0)
             {
-                ClampedCheck(isClampPosMax, i, isDrag);
+                if(isClampPosMax) ClampedCheck(isClampPosMax, i, isDrag);
             }
             else if (i == songPanelList.Count - 1)
             {
-                ClampedCheck(isClampPosMin, i, isDrag);
+                if(isClampPosMin) ClampedCheck(isClampPosMin, i, isDrag);
             }
             else
             {
-                ClampedCheck(isClampPosMin && isClampPosMax, i, isDrag);
+                if(isClampPosMin && isClampPosMax) ClampedCheck(isClampPosMin && isClampPosMax, i, isDrag);
             }
         }
     }

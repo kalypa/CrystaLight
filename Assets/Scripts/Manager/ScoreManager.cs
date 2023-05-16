@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class ScoreManager : SingleMonobehaviour<ScoreManager>
@@ -11,7 +8,10 @@ public class ScoreManager : SingleMonobehaviour<ScoreManager>
     public TMP_Text comboText;
     public TMP_Text hitAccuracyText;
 
-    int score = 0;
+    public int score = 0;
+    public int perfectScore = 170;
+    public int greatScore = 140;
+    public int goodScore = 40;
     int combo = 0;
     int maxCombo = 0;
     public int perfectCount = 0;
@@ -19,31 +19,25 @@ public class ScoreManager : SingleMonobehaviour<ScoreManager>
     public int goodCount = 0;
     int hitCount = 0;
     public int missCount = 0;
-
-    void Start()
+    private int currentSongNoteTotal = 0;
+    void Start() => Init();
+    void Init()
     {
         UpdateUI();
+        foreach (var note in StageManager.Instance.stageList[StageManager.Instance.currentStageNum].stageSong.songNotes) currentSongNoteTotal += note.timeStamps.Count;
     }
-
     public void Hit()
     {
-
         hitCount++;
         combo++;
-
         score += 100 * combo;
-
-        if (combo > maxCombo)
-            maxCombo = combo;
-
+        if (combo > maxCombo) maxCombo = combo;
         UpdateUI();
     }
-
     public void Miss()
     {
         missCount++;
         combo = 0;
-
         UpdateUI();
     }
 
@@ -57,12 +51,15 @@ public class ScoreManager : SingleMonobehaviour<ScoreManager>
 
     public float CalculateHitAccuracy()
     {
-        if (hitCount + missCount == 0)
-            return 0;
+        if (hitCount + missCount == 0) return 0;
 
         return (float)(((perfectCount * 100f) + (greatCount * 75f) + (goodCount * 40f)) / ( hitCount + missCount));
     }
 
+    public void CalculateScore(int currentScore)
+    {
+        score += currentScore * (int)(1 + 1 / 3 * Mathf.Log10(Mathf.Min(Mathf.Max(combo, 1), currentSongNoteTotal)));
+    }
     public void Reset()
     {
         score = 0;
@@ -70,7 +67,6 @@ public class ScoreManager : SingleMonobehaviour<ScoreManager>
         maxCombo = 0;
         hitCount = 0;
         missCount = 0;
-
         UpdateUI();
     }
 }

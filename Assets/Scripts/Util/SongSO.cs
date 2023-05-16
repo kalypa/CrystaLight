@@ -9,6 +9,6 @@ public class SongSO : ScriptableObject
     public AudioSource songAudioSource;
     public string songName;
     public string artistName;
-    public Sprite background;
     public Sprite albumArt;
+    public float bpm;
 }

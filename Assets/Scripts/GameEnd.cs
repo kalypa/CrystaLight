@@ -6,13 +6,11 @@ using UnityEngine.SceneManagement;
 public class GameEnd : MonoBehaviour
 {
     public GameObject endUI;
-    private void Update()
+    private void Update() => End();
+    public void End()
     {
-        End1();
-    }
-    public void End1()
-    {
-        if (SongManager.Instance.audioSource.time >= SongManager.Instance.audioSource.clip.length)
+        var audio = SongManager.Instance.audioSource;
+        if (audio.time >= audio.clip.length)
         {
             endUI.SetActive(true);
             EndUI.Instance.EndTexts();

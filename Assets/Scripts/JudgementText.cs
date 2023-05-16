@@ -1,40 +1,43 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.VisualScripting;
 using System;
 using TMPro;
 
 public class JudgementText : MonoBehaviour
 {
-    public List<Sprite> accuracySprites;                 //JudgementTextSO에서 가져온 JudgementTextData
+    public List<Sprite> accuracySprites;
     public ComboText comboNumText;
     public ComboText comboText;
-    private float timer = 0;                                               // 정확도 텍스트가 초기화되는 시간
+    private float timer = 0;                                               
+    private SpriteRenderer spriteRenderer;
+    private TMP_Text comboNum;
+    private TMP_Text combo;
+    private TouchEffect effect;
+    public void Start() => Init();
 
-    public void Start()
+    void Init()
     {
         DataManager.Instance.JudgementTextDataInit(accuracySprites);
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        comboNum = comboNumText.GetComponent<TMP_Text>();
+        combo = comboText.GetComponent<TMP_Text>();
+        effect = GetComponent<TouchEffect>();
     }
-
-    public void TimerInit()
-    {
-        timer = 0;
-    }
+    public void TimerInit() => timer = 0;
 
     public void AccuracyJudgement(double audioT, double timeStamp)
     {
         if(Math.Abs(audioT - timeStamp) <= 0.05)
         {
             ScoreManager.Instance.perfectCount++;
-            JudgementTextChange(accuracySprites[0]);
+            JudgementCount(ScoreManager.Instance.perfectScore, accuracySprites[0]);
         }
         else if (Math.Abs(audioT - timeStamp) > 0.05)
         {
             if (Math.Abs(audioT - timeStamp) <= 0.1f)
             {
                 ScoreManager.Instance.greatCount++;
-                JudgementTextChange(accuracySprites[1]);
+                JudgementCount(ScoreManager.Instance.greatScore, accuracySprites[1]);
             }
 
             else if (Math.Abs(audioT - timeStamp) > 0.09 )
@@ -42,50 +45,53 @@ public class JudgementText : MonoBehaviour
                 if (Math.Abs(audioT - timeStamp) <= 0.15f)
                 {
                     ScoreManager.Instance.goodCount++;
-                    JudgementTextChange(accuracySprites[2]);
+                    JudgementCount(ScoreManager.Instance.goodScore, accuracySprites[2]);
                 }
             }
         }
     }
+
+    void JudgementCount(int score, Sprite sprite)
+    {
+        ScoreManager.Instance.CalculateScore(score);
+        JudgementTextChange(sprite);
+        JudgementEffect();
+    }
     public void LongNoteAccuracyJudgement()
     {
         ScoreManager.Instance.perfectCount++;
-        JudgementTextChange(accuracySprites[0]);
+        JudgementCount(ScoreManager.Instance.perfectScore, accuracySprites[0]);
     }
     public void JudgementTextTimer()
     {
-        if (this.GetComponent<SpriteRenderer>().enabled == true)
-        {
-            timer += Time.deltaTime;
-        }
-        else
-        {
-            timer = 0;
-        }
+        if (spriteRenderer.enabled == true) timer += Time.deltaTime;
+        else timer = 0;
 
-        if (timer >= 2)
-        {
-            this.GetComponent<SpriteRenderer>().enabled = false;
-        }
+        if (timer >= 2 && spriteRenderer.sprite == accuracySprites[3]) spriteRenderer.enabled = false; 
     }
 
     public void JudgementTextChange(Sprite s)
     {
-        this.GetComponent<SpriteRenderer>().enabled = true;
-        this.GetComponent<SpriteRenderer>().sprite = s;
-        comboNumText.GetComponent<TMP_Text>().enabled = true;
-        comboText.GetComponent<TMP_Text>().enabled = true;
+        spriteRenderer.enabled = true;
+        spriteRenderer.sprite = s;
+        comboNum.enabled = true;
+        combo.enabled = true;
+    }
+
+    public void JudgementEffect()
+    {
         comboNumText.ComboTextEffect();
         comboText.ComboTextEffect();
-        this.GetComponent<TouchEffect>().ComboTextEffect();
+        effect.ComboTextEffect();
     }
 
     public void ViewMissText()
     {
-        this.GetComponent<SpriteRenderer>().enabled = true;
-        comboNumText.GetComponent<TMP_Text>().enabled = false;
-        comboText.GetComponent<TMP_Text>().enabled = false;
-        this.GetComponent<SpriteRenderer>().sprite = accuracySprites[3];
-        this.GetComponent<TouchEffect>().ComboTextEffect();
+        spriteRenderer.enabled = true;
+        comboNum.enabled = false;
+        combo.enabled = false;
+        spriteRenderer.sprite = accuracySprites[3];
+        effect.ComboTextEffect();
+        JudgementEffect();
     }
 }

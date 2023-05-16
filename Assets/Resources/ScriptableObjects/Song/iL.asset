@@ -18,5 +18,5 @@ MonoBehaviour:
     type: 3}
   songName: iL
   artistName: ICE
-  background: {fileID: 21300000, guid: f5ea3679517904e48ba40f2b2faea8e8, type: 3}
-  albumArt: {fileID: 21300000, guid: 624cb0e2ed093374e98d2624e8ef010e, type: 3}
+  albumArt: {fileID: 21300000, guid: 4b1dc71ab583a7941ac4e5acfd58e55d, type: 3}
+  bpm: 80

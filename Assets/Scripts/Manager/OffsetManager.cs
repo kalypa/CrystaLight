@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class OffsetManager : SingleMonobehaviour<OffsetManager>
 {
@@ -9,10 +7,7 @@ public class OffsetManager : SingleMonobehaviour<OffsetManager>
     public double GetOffset()
     {
         double sum = 0;
-        foreach (double offset in offsetList)
-        {
-            sum += offset;
-        }
+        foreach (double offset in offsetList) sum += offset;
         return sum / offsetList.Count;
     }
 }

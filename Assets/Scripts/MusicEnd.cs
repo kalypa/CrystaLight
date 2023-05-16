@@ -7,10 +7,7 @@ using UnityEngine.SceneManagement;
 public class MusicEnd : MonoBehaviour
 {
 
-    private void Update()
-    {
-        EndMusic();
-    }
+    private void Update() => EndMusic();
 
     public void EndMusic()
     {
