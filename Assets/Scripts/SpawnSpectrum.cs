@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class SpawnSpectrum : MonoBehaviour
 {
@@ -10,13 +7,15 @@ public class SpawnSpectrum : MonoBehaviour
     GameObject[] spectrumLine = new GameObject[512];
     public float maxScale;
 
-    void Start()
+    void Start() => Init();
+
+    void Update() => SetSpectrumScale();
+
+    void Init()
     {
         SpawnSpectrumLine();
         SetScaleY();
     }
-
-    void Update() => SetSpectrumScale();
     void SpawnSpectrumLine()
     {
         for (int i = 0; i < spectrumLine.Length; i++)
@@ -24,8 +23,8 @@ public class SpawnSpectrum : MonoBehaviour
             GameObject spawnLine = Instantiate(spectrumPrefab);
             spawnLine.transform.position = transform.position;
             spawnLine.transform.parent = transform;
-            transform.eulerAngles = new Vector3(0, 0, -0.703125f * i);
-            spawnLine.transform.position = Vector3.right * 5.55f;
+            transform.eulerAngles = new Vector3(0, 0, 0.703125f * i * 2);
+            spawnLine.transform.position = Vector3.left * 5.55f;
             spectrumLine[i] = spawnLine;
             GradientRainbow(i);
         }
@@ -76,7 +75,7 @@ public class SpawnSpectrum : MonoBehaviour
     {
         for (int i = 0; i < spectrumLine.Length; i++)
         {
-            if (spectrumLine[i] != null) spectrumLine[i].transform.localScale = new Vector3((Equalizer.samples[i] * maxScale) + 0.111f, 0.0555f, 0.0555f);
+            if (spectrumLine[i] != null) spectrumLine[i].transform.localScale = new Vector3(-(Equalizer.samples[i] * maxScale) - 0.111f, 0.0555f, 0.0555f);
             GradientRainbow(i);
         }
     }

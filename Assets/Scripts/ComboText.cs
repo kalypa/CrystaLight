@@ -1,6 +1,5 @@
 using DG.Tweening;
 using UnityEngine;
-
 public class ComboText : MonoBehaviour
 {
     [SerializeField]
