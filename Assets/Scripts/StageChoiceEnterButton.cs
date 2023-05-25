@@ -8,8 +8,8 @@ using System;
 public class StageChoiceEnterButton : MonoBehaviour
 {
     private RectTransform rect;
-    public static Action onClickAction;
-    public static Action comeBackAction;
+    public Action onClickAction;
+    public Action comeBackAction;
     [SerializeField] private Image fadeBackground;
     [SerializeField] private GameObject scrollView;
     [SerializeField] private GameObject equalizer;
@@ -24,33 +24,37 @@ public class StageChoiceEnterButton : MonoBehaviour
     }
     void Update()
     {
-        if (fadeBackground.color.a == 1) BackgroundFadeIn();
+        if (fadeBackground.color.a == 1)
+        {
+            if(scrollView.activeSelf) BackgroundFadeIn(false);
+            else BackgroundFadeIn(true);
+        }
     }
     void ActionInit()
     {
         onClickAction += ButtonMoveDownEffect;
         onClickAction += BackgroundFadeOut;
-        comeBackAction += ButtonMoveUpEffect;
         comeBackAction += BackgroundFadeOut;
     }
-    void ButtonMoveDownEffect() => rect.DOAnchorPosY(-590, 0.8f);
-    void ButtonMoveUpEffect() => rect.DOAnchorPosY(-490, 0.8f);
-    void BackgroundFadeIn()
+    void ButtonMoveDownEffect() => rect.DOAnchorPosY(-590, 0.5f);
+    void ButtonMoveUpEffect() => rect.DOAnchorPosY(-490, 0.5f);
+    void BackgroundFadeIn(bool active)
     {
-        fadeBackground.DOFade(0, 2f);
-        Invoke(nameof(BackgroundActiveFalse), 2f);
-        StageActive();
+        fadeBackground.DOFade(0, 0.7f);
+        Invoke(nameof(BackgroundActiveFalse), 0.7f);
+        StageActive(active);
     }
     void BackgroundFadeOut()
     {
         fadeBackground.gameObject.SetActive(true);
-        fadeBackground.DOFade(1, 1f);
+        fadeBackground.DOFade(1, 0.7f);
     }
     void BackgroundActiveFalse() => fadeBackground.gameObject.SetActive(false);
-    void StageActive()
+    void StageActive(bool active)
     {
-        scrollView.SetActive(true);
-        equalizer.SetActive(true);
-        music.SetActive(true);
+        scrollView.SetActive(active);
+        equalizer.SetActive(active);
+        music.SetActive(active);
+        if (active == false) ButtonMoveUpEffect();
     }
 }

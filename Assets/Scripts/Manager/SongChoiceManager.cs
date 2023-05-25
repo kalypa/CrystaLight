@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,8 @@ public class SongChoiceManager : MonoBehaviour
     private float panelDistance = 1080f;
     private float distancehalf = 540f;
     public AudioSource previewSong;
+    public TMP_Text songName;
+    public TMP_Text artistName;
     private void Awake() => Instance = this;
 
     private void Start() => Init();
@@ -42,7 +45,7 @@ public class SongChoiceManager : MonoBehaviour
             if (previewSong.clip != stage.previewSong)
             {
                 previewSong.clip = stage.previewSong;
-                previewSong.Play();
+                if(previewSong.gameObject.activeSelf) previewSong.Play();
             }
         }
     }

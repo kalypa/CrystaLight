@@ -13,7 +13,7 @@ public class ScoreManager : SingleMonobehaviour<ScoreManager>
     public int greatScore = 140;
     public int goodScore = 40;
     int combo = 0;
-    int maxCombo = 0;
+    public int maxCombo = 0;
     public int perfectCount = 0;
     public int greatCount = 0;
     public int goodCount = 0;
@@ -44,9 +44,9 @@ public class ScoreManager : SingleMonobehaviour<ScoreManager>
     void UpdateUI()
     {
         comboText.text = "Combo";
-        scoreText.text = "Score : " + score.ToString();
+        scoreText.text = score.ToString();
         comboNumText.text = combo.ToString();
-        hitAccuracyText.text = "Rate : " + CalculateHitAccuracy().ToString("F2") + "%";
+        hitAccuracyText.text = CalculateHitAccuracy().ToString("F2") + "%";
     }
 
     public float CalculateHitAccuracy()

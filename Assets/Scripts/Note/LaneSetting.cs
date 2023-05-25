@@ -17,7 +17,6 @@ public class LaneSetting : MonoBehaviour
     public GameObject[] hitParticles = new GameObject[4];
     public JudgementText judgementText;
     public GameObject holdLaneImage;
-    public Material[] backgroundMaterial = new Material[4];
     public Lane crossLane;
     public Lane sideLane;
     public Lane refractionLane;
@@ -34,6 +33,8 @@ public class LaneSetting : MonoBehaviour
     private float timer = 0;
     protected SpriteRenderer sprite;
     public Sprite[] holdImages;
+    protected bool isMouseDown;
+    protected bool isMouseDrag;
     public void SetTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array, List<double> timeStamp, bool isLongNote)
     {
         foreach (var note in array)
@@ -104,6 +105,7 @@ public class LaneSetting : MonoBehaviour
     protected void HoldLaneActiveFalse()
     {
         if (Input.GetKeyUp(input)) holdLaneImage.SetActive(false);
+        //if (!isMouseDown) holdLaneImage.SetActive(false);
     }
 
     protected void Miss()
@@ -137,7 +139,9 @@ public class LaneSetting : MonoBehaviour
     }
     protected void SpawnNote(Note.NoteType n, bool laneCk, int num1, int num2, bool isLinked)
     {
+        
         var note = PoolManager.Instance.GetFromPool<Note>(laneNum);
+        note.transform.position = new Vector3(transform.position.x, transform.position.y, SongManager.Instance.noteSpawnZ);
         note.type = n;
         notes.Add(note);
         note.endTime = noteSO.endTimeStamps[spawnIndex];
@@ -151,7 +155,7 @@ public class LaneSetting : MonoBehaviour
         {
             if (!isLongNoteStart)
             {
-                nextTick = AudioSettings.dspTime + 60.0 / (bpm * 8);
+                nextTick = AudioSettings.dspTime + 60.0 / (bpm * 32);
                 isLongNoteStart = true;
             }
             double currentTime = AudioSettings.dspTime;
@@ -159,7 +163,7 @@ public class LaneSetting : MonoBehaviour
             {
                 judgementText.LongNoteAccuracyJudgement();
                 Hit(idx);
-                nextTick += 60.0 / (bpm * 8);
+                nextTick += 60.0 / (bpm * 32);
             }
         }
     }

@@ -17,7 +17,7 @@ public class JudgementText : MonoBehaviour
 
     void Init()
     {
-        DataManager.Instance.JudgementTextDataInit(accuracySprites);
+        JudgementTextManager.Instance.JudgementTextDataInit(accuracySprites);
         spriteRenderer = GetComponent<SpriteRenderer>();
         comboNum = comboNumText.GetComponent<TMP_Text>();
         combo = comboText.GetComponent<TMP_Text>();

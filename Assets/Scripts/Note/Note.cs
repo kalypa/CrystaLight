@@ -102,7 +102,7 @@ public class Note : MonoBehaviour, IPoolObject
             else SetLineRendererPos(new Vector3(transform.position.x, transform.position.y, lanePos), new Vector3(transform.position.x, transform.position.y, tail.transform.position.z));
         }
         else SetLineRendererPos(transform.position, new Vector3(transform.position.x, transform.position.y, SongManager.Instance.noteSpawnZ));
-        if (transform.localPosition.z <= SongManager.Instance.noteDespawnZ)
+        if (transform.localPosition.z <= SongManager.Instance.noteDespawnZ && isHolding)
         {
             float tailProgress = Mathf.Clamp01(t - (SongManager.Instance.noteDespawnZ - SongManager.Instance.noteSpawnZ) / (2 * (SongManager.Instance.noteDespawnZ - SongManager.Instance.noteSpawnZ)));
             MoveTail(tailProgress);
@@ -111,6 +111,7 @@ public class Note : MonoBehaviour, IPoolObject
 
     void Init()
     {
+        NoteLinkInit();
         timeInstantiated = SongManager.GetAudioSourceTime();
         spriteRenderer = GetComponent<SpriteRenderer>();
         lineRenderer = GetComponent<LineRenderer>();
@@ -121,9 +122,8 @@ public class Note : MonoBehaviour, IPoolObject
         tail.SetActive(false);
         isHolding = false;
         isMissed = true;
-        NoteLinkInit();
     }
-    void NoteLinkInit()
+    public void NoteLinkInit()
     {
         for(int i = 0; i < noteLinks1.Length; i++) if (noteLinks1[i] != null) noteLinks1[i].SetActive(false);
         for(int i = 0; i < noteLinks2.Length; i++) if (noteLinks2[i] != null) noteLinks2[i].SetActive(false);

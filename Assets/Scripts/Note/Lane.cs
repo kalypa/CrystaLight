@@ -1,12 +1,12 @@
 using Redcode.Pools;
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Lane : LaneSetting
+public class Lane : LaneSetting, IPointerDownHandler
 {
     private void Start() => sprite = holdLaneImage.GetComponent<SpriteRenderer>();
-    void Update() => LaneUpdate();
-
+    private void Update() => LaneUpdate();
     void LaneUpdate()
     {
         judgementText.JudgementTextTimer();
@@ -55,6 +55,7 @@ public class Lane : LaneSetting
 
     void DestroyNote()
     {
+        notes[inputIndex].NoteLinkInit();
         PoolManager.Instance.TakeToPool<Note>("Lane" + laneNum.ToString(), notes[inputIndex]);
         notes[inputIndex] = null;
         inputIndex++;
@@ -68,12 +69,14 @@ public class Lane : LaneSetting
             double marginOfError = SongManager.Instance.marginOfError;
             double perfectTime = 0.05f;
             double audioTime = SongManager.GetAudioSourceTime() - (SongManager.Instance.inputDelayInMilliseconds / 1000.0);
-
-            if (Input.GetKeyDown(input)) KeyDownAction(audioTime, timeStamp, marginOfError);
+            if (Input.GetKeyDown(input)) KeyDownAction(audioTime, timeStamp, marginOfError); // PC 입력
+            //if (isMouseDown) KeyDownAction(audioTime, timeStamp, marginOfError); // 모바일 입력
             if (notes.Count - 1 >= inputIndex && notes[inputIndex].isHolding)
             {
                 if (Input.GetKey(input)) KeyHoldAction(audioTime, endTimeStamp, perfectTime);
+                //if (isMouseDrag) KeyHoldAction(audioTime, endTimeStamp, perfectTime);
                 if (Input.GetKeyUp(input)) KeyUpAction(audioTime, endTimeStamp, marginOfError);
+                //if (!isMouseDown) KeyUpAction(audioTime, endTimeStamp, marginOfError);
             }
             if (timeStamp + marginOfError <= audioTime) MissAction();
 
@@ -81,7 +84,6 @@ public class Lane : LaneSetting
         }
         HoldLaneActiveFalse();
     }
-
     void KeyDownAction(double audioTime, double timeStamp, double marginOfError)
     {
         HoldInit();
@@ -109,11 +111,11 @@ public class Lane : LaneSetting
 
     void KeyHoldAction(double audioTime, double endTimeStamp, double perfectTime)
     {
-        if (Math.Abs(audioTime - endTimeStamp) < perfectTime)
+        if (Math.Abs(audioTime - endTimeStamp) <= perfectTime)
         {
-            Hit(notes[inputIndex].ParticleIndex());
+            //Hit(notes[inputIndex].ParticleIndex());
             notes[inputIndex].isHolding = false;
-            judgementText.LongNoteAccuracyJudgement();
+            //judgementText.LongNoteAccuracyJudgement();
             DestroyNote();
         }
     }
@@ -147,5 +149,10 @@ public class Lane : LaneSetting
                 }
             }
         }
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+
     }
 }
