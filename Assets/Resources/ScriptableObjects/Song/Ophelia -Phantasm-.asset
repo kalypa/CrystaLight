@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   songNotes:
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   songAudioSource: {fileID: 842315431685130483, guid: 7f81654c7a6876344ac91ebdf7f9638f,
     type: 3}
   songName: Ophelia -Phantasm-

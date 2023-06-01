@@ -5148,7 +5148,7 @@ MonoBehaviour:
   enableRandomImages: 1
   imageObject: {fileID: 7652303618029495527}
   imageList:
-  - {fileID: 21300000, guid: b9304fc66c9b8ee4d9a6557c81e3d39a, type: 3}
+  - {fileID: 21300000, guid: 7f559a17d2cd1a44db642f8bacdb7f38, type: 3}
   changeImageWithTimer: 1
   imageTimerValue: 5
   imageFadingSpeed: 4

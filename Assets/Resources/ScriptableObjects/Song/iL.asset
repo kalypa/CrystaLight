@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   songNotes:
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   songAudioSource: {fileID: 1200848907861713916, guid: c8e584882136e854fbdb7939efa48753,
     type: 3}
   songName: iL

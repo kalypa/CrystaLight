@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 public class ScoreManager : SingleMonobehaviour<ScoreManager>
 {
@@ -55,7 +56,6 @@ public class ScoreManager : SingleMonobehaviour<ScoreManager>
 
         return (float)(((perfectCount * 100f) + (greatCount * 75f) + (goodCount * 40f)) / ( hitCount + missCount));
     }
-
     public void CalculateScore(int currentScore)
     {
         score += currentScore * (int)(1 + 1 / 3 * Mathf.Log10(Mathf.Min(Mathf.Max(combo, 1), currentSongNoteTotal)));

@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   songNotes:
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   songAudioSource: {fileID: 6711653464573643755, guid: cee6a60286875ee4789d5c8979cdc0dc,
     type: 3}
   songName: ouroVoros

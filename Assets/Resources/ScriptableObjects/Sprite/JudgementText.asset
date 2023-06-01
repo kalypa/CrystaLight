@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: JudgementText
   m_EditorClassIdentifier: 
   accuracyList:
-  - {fileID: 1063602709, guid: e9a04a0cb28d8de4db6d7bd476243e25, type: 3}
-  - {fileID: 1518280957, guid: e9a04a0cb28d8de4db6d7bd476243e25, type: 3}
-  - {fileID: 832728837, guid: e9a04a0cb28d8de4db6d7bd476243e25, type: 3}
-  - {fileID: 1303317539, guid: e9a04a0cb28d8de4db6d7bd476243e25, type: 3}
+  - {fileID: -778207516, guid: 96506001f1069c549831f881821be22b, type: 3}
+  - {fileID: -2108505312, guid: 96506001f1069c549831f881821be22b, type: 3}
+  - {fileID: 290372173, guid: 96506001f1069c549831f881821be22b, type: 3}
+  - {fileID: -1720791341, guid: 96506001f1069c549831f881821be22b, type: 3}

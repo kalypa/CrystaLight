@@ -69,14 +69,11 @@ public class Lane : LaneSetting, IPointerDownHandler
             double marginOfError = SongManager.Instance.marginOfError;
             double perfectTime = 0.05f;
             double audioTime = SongManager.GetAudioSourceTime() - (SongManager.Instance.inputDelayInMilliseconds / 1000.0);
-            if (Input.GetKeyDown(input)) KeyDownAction(audioTime, timeStamp, marginOfError); // PC 입력
-            //if (isMouseDown) KeyDownAction(audioTime, timeStamp, marginOfError); // 모바일 입력
+            if (Input.GetKeyDown(input)) KeyDownAction(audioTime, timeStamp, marginOfError); 
             if (notes.Count - 1 >= inputIndex && notes[inputIndex].isHolding)
             {
                 if (Input.GetKey(input)) KeyHoldAction(audioTime, endTimeStamp, perfectTime);
-                //if (isMouseDrag) KeyHoldAction(audioTime, endTimeStamp, perfectTime);
                 if (Input.GetKeyUp(input)) KeyUpAction(audioTime, endTimeStamp, marginOfError);
-                //if (!isMouseDown) KeyUpAction(audioTime, endTimeStamp, marginOfError);
             }
             if (timeStamp + marginOfError <= audioTime) MissAction();
 

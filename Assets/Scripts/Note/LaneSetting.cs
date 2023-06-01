@@ -155,7 +155,7 @@ public class LaneSetting : MonoBehaviour
         {
             if (!isLongNoteStart)
             {
-                nextTick = AudioSettings.dspTime + 60.0 / (bpm * 32);
+                nextTick = AudioSettings.dspTime + 60.0 / (bpm * 8);
                 isLongNoteStart = true;
             }
             double currentTime = AudioSettings.dspTime;
@@ -163,7 +163,7 @@ public class LaneSetting : MonoBehaviour
             {
                 judgementText.LongNoteAccuracyJudgement();
                 Hit(idx);
-                nextTick += 60.0 / (bpm * 32);
+                nextTick += 60.0 / (bpm * 8);
             }
         }
     }

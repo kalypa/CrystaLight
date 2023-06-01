@@ -36,10 +36,10 @@ public class EndUI : MonoBehaviour
         var instance = ScoreManager.Instance;
         scoreText.text = instance.scoreText.text;
         accuracyText.text = instance.hitAccuracyText.text;
-        perfectText.text = ": " + instance.perfectCount.ToString();
-        greatText.text = ": " + instance.greatCount.ToString();
-        goodText.text = ": " + instance.goodCount.ToString();
-        missText.text = ": " + instance.missCount.ToString();
+        perfectText.text = instance.perfectCount.ToString();
+        greatText.text = instance.greatCount.ToString();
+        goodText.text = instance.goodCount.ToString();
+        missText.text = instance.missCount.ToString();
     }
 
     void SaveData()

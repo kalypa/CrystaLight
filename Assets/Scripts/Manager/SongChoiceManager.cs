@@ -18,6 +18,8 @@ public class SongChoiceManager : MonoBehaviour
     private void Awake() => Instance = this;
 
     private void Start() => Init();
+
+    private void Update() => scrollRect.enabled = !GameManager.Instance.isInPanel;
     void Init()
     {
         SongInfoInit();
