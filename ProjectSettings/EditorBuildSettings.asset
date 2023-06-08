@@ -11,10 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PlayScene.unity
     guid: ab1e4c872e94efd47bb2f32b83eecd89
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MLAgentPlayScene.unity
     guid: cb45a044db7e3b74a835aaf8eb1bd341
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MLAgentLobby.unity
     guid: 3623fbc57588f39488cac7f5930b0249
   m_configObjects: {}

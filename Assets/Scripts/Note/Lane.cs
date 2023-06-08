@@ -146,7 +146,6 @@ public class Lane : LaneSetting
     {
         if (Math.Abs(audioTime - endTimeStamp) <= perfectTime)
         {
-            aiTime = Math.Abs(audioTime - endTimeStamp);
             notes[inputIndex].isHolding = false;
             DestroyNote();
         }
@@ -155,7 +154,6 @@ public class Lane : LaneSetting
     {
         if (endTimeStamp - audioTime < marginOfError)
         {
-            aiTime = endTimeStamp - audioTime;
             Hit(notes[inputIndex].ParticleIndex());
             notes[inputIndex].isHolding = false;
             judgementText.AccuracyJudgement(audioTime, endTimeStamp, laneNum);
@@ -163,7 +161,6 @@ public class Lane : LaneSetting
         }
         else if (endTimeStamp - audioTime >= marginOfError)
         {
-            aiTime = endTimeStamp - audioTime;
             notes[inputIndex].isHolding = false;
             Miss();
         }
