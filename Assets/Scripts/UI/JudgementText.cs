@@ -13,6 +13,7 @@ public class JudgementText : MonoBehaviour
     private TMP_Text comboNum;
     private TMP_Text combo;
     private TouchEffect effect;
+    public LaneAgent[] laneAI;
     public void Start() => Init();
 
     void Init()
@@ -25,10 +26,11 @@ public class JudgementText : MonoBehaviour
     }
     public void TimerInit() => timer = 0;
 
-    public void AccuracyJudgement(double audioT, double timeStamp)
+    public void AccuracyJudgement(double audioT, double timeStamp, int num)
     {
         if(Math.Abs(audioT - timeStamp) <= 0.05)
         {
+            if (GameManager.Instance.isAuto) laneAI[num].AddReward(1);
             ScoreManager.Instance.perfectCount++;
             JudgementCount(ScoreManager.Instance.perfectScore, accuracySprites[0]);
         }
@@ -36,6 +38,7 @@ public class JudgementText : MonoBehaviour
         {
             if (Math.Abs(audioT - timeStamp) <= 0.1f)
             {
+                if (GameManager.Instance.isAuto) laneAI[num].AddReward(0.75f);
                 ScoreManager.Instance.greatCount++;
                 JudgementCount(ScoreManager.Instance.greatScore, accuracySprites[1]);
             }
@@ -44,6 +47,7 @@ public class JudgementText : MonoBehaviour
             {
                 if (Math.Abs(audioT - timeStamp) <= 0.15f)
                 {
+                    if (GameManager.Instance.isAuto) laneAI[num].AddReward(0.4f);
                     ScoreManager.Instance.goodCount++;
                     JudgementCount(ScoreManager.Instance.goodScore, accuracySprites[2]);
                 }
@@ -57,8 +61,9 @@ public class JudgementText : MonoBehaviour
         JudgementTextChange(sprite);
         JudgementEffect();
     }
-    public void LongNoteAccuracyJudgement()
+    public void LongNoteAccuracyJudgement(int num)
     {
+        if (GameManager.Instance.isAuto) laneAI[num].AddReward(1);
         ScoreManager.Instance.perfectCount++;
         JudgementCount(ScoreManager.Instance.perfectScore, accuracySprites[0]);
     }

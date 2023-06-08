@@ -5,4 +5,6 @@ public class GameManager : SingleMonobehaviour<GameManager>
     public int offset = 0;
     public RecordSO recordSO;
     public bool isInPanel = false;
+    public bool isAuto = false;
+    public float volume;
 }

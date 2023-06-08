@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed6870c2354a28b459276b4fcbe8f8f7, type: 3}
+  m_Name: Ophelia -Phantasm- Auto
+  m_EditorClassIdentifier: 
+  songNotes:
+  - {fileID: 11400000, guid: 20525ab1a72499a44bb0c41cd01a2f6b, type: 2}
+  - {fileID: 11400000, guid: d57a09b00a2dc384d81eef3e26246f52, type: 2}
+  - {fileID: 11400000, guid: ff77cd9e4846e1545883d16daba8df98, type: 2}
+  - {fileID: 11400000, guid: 1ef3eac2da710ea4cb62148e4edd9a07, type: 2}
+  songAudioSource: {fileID: 842315431685130483, guid: 7f81654c7a6876344ac91ebdf7f9638f,
+    type: 3}
+  songName: Ophelia -Phantasm-(NoLong)
+  artistName: Lime
+  albumArt: {fileID: 21300000, guid: a00ba93f6f0c6e445a0f60103319504a, type: 3}
+  bpm: 94

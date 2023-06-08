@@ -50,13 +50,13 @@ public class SongManager : MonoBehaviour
 
         Invoke(nameof(StartSong), songDelayInSeconds);  
         foreach (var lane in lanes) lane.NotSOInit();
-        foreach (var lane in lanes) lane.SetTimeStamps(array, lane.noteSO.timeStamps, false);  
-        foreach (var lane in lanes) lane.SetTimeStamps(array, lane.noteSO.endTimeStamps, true);  
+        foreach (var lane in lanes) if(lane.noteSO.timeStamps.Count <= 0) lane.SetTimeStamps(array, lane.noteSO.timeStamps, false);  
+        foreach (var lane in lanes) if (lane.noteSO.endTimeStamps.Count <= 0) lane.SetTimeStamps(array, lane.noteSO.endTimeStamps, true);  
         foreach (var lane in lanes)
         {
-            lane.FindSameTimeInOtherLaneTimeStamp(lane.sideLane, lane.sideLane.noteSO.sameTimeInSideLaneList);
-            lane.FindSameTimeInOtherLaneTimeStamp(lane.crossLane, lane.crossLane.noteSO.sameTimeInCrossLaneList);
-            lane.FindSameTimeInOtherLaneTimeStamp(lane.refractionLane, lane.refractionLane.noteSO.sameTimeInRefractionLaneList);
+            if (lane.sideLane.noteSO.sameTimeInSideLaneList.Count <= 0) lane.FindSameTimeInOtherLaneTimeStamp(lane.sideLane, lane.sideLane.noteSO.sameTimeInSideLaneList);
+            if (lane.crossLane.noteSO.sameTimeInCrossLaneList.Count <= 0) lane.FindSameTimeInOtherLaneTimeStamp(lane.crossLane, lane.crossLane.noteSO.sameTimeInCrossLaneList);
+            if (lane.refractionLane.noteSO.sameTimeInRefractionLaneList.Count <= 0) lane.FindSameTimeInOtherLaneTimeStamp(lane.refractionLane, lane.refractionLane.noteSO.sameTimeInRefractionLaneList);
         }
     }
 

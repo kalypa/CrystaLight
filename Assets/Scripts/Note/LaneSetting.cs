@@ -33,8 +33,8 @@ public class LaneSetting : MonoBehaviour
     private float timer = 0;
     protected SpriteRenderer sprite;
     public Sprite[] holdImages;
-    protected bool isMouseDown;
-    protected bool isMouseDrag;
+    public LaneAgent laneAI;
+    public double aiTime;
     public void SetTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array, List<double> timeStamp, bool isLongNote)
     {
         foreach (var note in array)
@@ -108,14 +108,6 @@ public class LaneSetting : MonoBehaviour
         //if (!isMouseDown) holdLaneImage.SetActive(false);
     }
 
-    protected void Miss()
-    {
-        judgementText.TimerInit();
-        judgementText.ViewMissText();
-        ScoreManager.Instance.Miss();
-        notes[inputIndex] = null;
-        inputIndex++;
-    }
 
     protected void NoteLengthCheck()
     {
@@ -161,7 +153,7 @@ public class LaneSetting : MonoBehaviour
             double currentTime = AudioSettings.dspTime;
             if (currentTime >= nextTick)
             {
-                judgementText.LongNoteAccuracyJudgement();
+                judgementText.LongNoteAccuracyJudgement(laneNum);
                 Hit(idx);
                 nextTick += 60.0 / (bpm * 8);
             }

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Ophelia -Phantasm-
   m_EditorClassIdentifier: 
   songNotes:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: ab5643bc4f5acc549987e7d9fd226232, type: 2}
+  - {fileID: 11400000, guid: 4c923dd3fb52d3e44bed562ce07fbcf1, type: 2}
+  - {fileID: 11400000, guid: 747fb4d77a8609a4b83ae454b34e5e50, type: 2}
+  - {fileID: 11400000, guid: e94439b76059e494e8d74385a1dd7409, type: 2}
   songAudioSource: {fileID: 842315431685130483, guid: 7f81654c7a6876344ac91ebdf7f9638f,
     type: 3}
   songName: Ophelia -Phantasm-
